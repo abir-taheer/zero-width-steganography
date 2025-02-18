@@ -53,8 +53,8 @@ And ends with the following end flag:
 >\u200B\u200E
 
 ### Mappings for Base4
-- `00`: U+200C (Zero Width Non-Joiner)
-- `01`: U+200D (Zero Width Joiner)
-- `10`: U+200E (LTR Mark)
-- `11`: U+200F (RTL Mark)
+- `0`: U+200C (Zero Width Non-Joiner)
+- `1`: U+200D (Zero Width Joiner)
+- `2`: U+200E (LTR Mark)
+- `3`: U+200F (RTL Mark)
 
