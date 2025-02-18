@@ -1,58 +1,38 @@
 const { parseFlags } = require("./helpers/parseFlags");
-const { assertIndex, assert } = require("./helpers/assert");
+const { assert } = require("./helpers/assert");
 const fs = require("fs");
 
 const flags = parseFlags(process.argv.slice(2));
 
-const embedArg = flags.find((flag) => flag[0] === "-e");
-const coverArg = flags.find((flag) => flag[0] === "-c");
-const outputArg = flags.find((flag) => flag[0] === "-o");
+const embedArg = flags.find((flag) => flag[0] === "-e")?.at(1);
+assert(embedArg, "Provide an embed path with -e");
 
-const embedPath = embedArg && embedArg[1];
-if (!embedPath) {
-  throw new Error("Provide an embed path with -e");
-}
+const coverArg = flags.find((flag) => flag[0] === "-c")?.at(1);
+assert(coverArg, "Provide a cover path with -c");
 
-const coverPath = coverArg && coverArg[1];
-if (!coverPath) {
-  throw new Error("Provide a cover path with -c");
-}
+const outputArg = flags.find((flag) => flag[0] === "-o")?.at(1);
+assert(outputArg, "Provide an output path with -o");
 
-const outputPath = outputArg && outputArg[1];
-if (!outputPath) {
-  throw new Error("Provide an output path with -o");
-}
+const { DISCOVERY_FLAG, END_FLAG, BASE_4_TO_ZERO_WIDTH } = require("./chars");
 
-const ZERO_WIDTH_NON_JOINER = "\u200C";
-const LTR_MARK = "\u200E";
-const RTL_MARK = "\u200F";
-const ZERO_WIDTH_SPACE = "\u200B";
+const cover = fs.readFileSync(coverArg, "utf8");
+const embed = fs.readFileSync(embedArg);
 
-// The hidden message will start and end with the discovery flag
-const DISCOVERY_FLAG = [ZERO_WIDTH_SPACE, RTL_MARK].join("");
-const END_FLAG = [ZERO_WIDTH_SPACE, LTR_MARK].join("");
+let zero_widthified = "";
 
-const ONE = ZERO_WIDTH_SPACE;
-const ZERO = RTL_MARK;
+embed.forEach((val) => {
+  const base4 = val.toString(4).padStart(4, "0");
 
-const cover = fs.readFileSync(coverPath, "utf8");
-const embed = fs.readFileSync(embedPath);
-const embedHex = embed.toString("hex");
-
-let hexified = "";
-
-embedHex.split("").forEach((char) => {
-  const binary = parseInt(char, 16).toString(2).padStart(4, "0");
-  binary.split("").forEach((bit) => {
-    hexified += bit === "1" ? ONE : ZERO;
+  base4.split("").forEach((base_4_char) => {
+    zero_widthified += BASE_4_TO_ZERO_WIDTH[base_4_char];
   });
 });
 
 const output =
   cover.slice(0, 1) +
   DISCOVERY_FLAG +
-  hexified +
-  DISCOVERY_FLAG +
+  zero_widthified +
+  END_FLAG +
   cover.slice(1);
 
-fs.writeFileSync(outputPath, output);
+fs.writeFileSync(outputArg, output);

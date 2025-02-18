@@ -10,4 +10,4 @@ const assertIndex = (val, message) => {
   }
 };
 
-module.exports = { assertIndex };
+module.exports = { assertIndex, assert };
