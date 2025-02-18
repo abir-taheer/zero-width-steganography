@@ -52,7 +52,7 @@ The encoded data starts with the following start flag:
 And ends with the following end flag:
 >\u200B\u200E
 
-### Mappings
+### Mappings for half bits
 - `00`: U+200C (Zero Width Non-Joiner)
 - `01`: U+200D (Zero Width Joiner)
 - `10`: U+200E (LTR Mark)
