@@ -43,7 +43,7 @@ node decode.js -s hidden.txt -o extracted.png
 
 ## How it Works
 
-The tool converts the binary of the files to base-4 numbers and represents them using invisible zero-width characters, which are then inserted at index 2 of the cover text. 
+The tool converts the binary of the files to base-4 numbers and represents them using invisible zero-width characters, which are then inserted at index 1 of the cover text. 
 This makes the hidden data invisible when viewing or printing the text, while preserving the ability to extract the original file.
 
 The encoded data starts with the following start flag:
