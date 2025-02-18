@@ -4,7 +4,7 @@ const ZERO_WIDTH_JOINER = "\u200D";
 const LTR_MARK = "\u200E";
 const RTL_MARK = "\u200F";
 
-// The hidden message will start and end with the discovery flag
+// The hidden message will start with the discovery flag end with the end flag
 const DISCOVERY_FLAG = [ZERO_WIDTH_SPACE, RTL_MARK].join("");
 const END_FLAG = [ZERO_WIDTH_SPACE, LTR_MARK].join("");
 

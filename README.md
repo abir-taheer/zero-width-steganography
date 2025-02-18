@@ -46,9 +46,15 @@ node decode.js -s hidden.txt -o extracted.png
 The tool converts the binary of the files to base-4 numbers and represents them using invisible zero-width characters, which are then inserted at index 2 of the cover text. 
 This makes the hidden data invisible when viewing or printing the text, while preserving the ability to extract the original file.
 
+The encoded data starts with the following start flag:
+>\u200B\u200F
+
+And ends with the following end flag:
+>\u200B\u200E
+
 ### Mappings
-- `00`: U+200B (Zero Width Space)
-- `01`: U+200C (Zero Width Non-Joiner)
-- `10`: U+200D (Zero Width Joiner)
-- `11`: U+200E (Left-to-Right Mark)
+- `00`: U+200C (Zero Width Non-Joiner)
+- `01`: U+200D (Zero Width Joiner)
+- `10`: U+200E (LTR Mark)
+- `11`: U+200F (RTL Mark)
 
