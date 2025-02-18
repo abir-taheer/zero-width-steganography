@@ -18,9 +18,9 @@ To hide a file within text:
 node encode.js -e path/to/file/to/hide -c path/to/cover/text -o output.txt
 ```
 
-- `-e`: Path to the file you want to hide
-- `-c`: Path to a text file that will hide your data
-- `-o`: Where to save the result
+- `-e`: Path to the file you want to embed
+- `-c`: Path to a text file that will act as the cover
+- `-o`: Where to save the resulting steg file
 
 ### Decoding
 To extract a hidden file:
@@ -28,8 +28,8 @@ To extract a hidden file:
 node decode.js -s path/to/steg/file -o extracted_file
 ```
 
-- `-s`: Path to the text file containing hidden data
-- `-o`: Where to save the extracted file
+- `-s`: Path to the steg text file
+- `-o`: Where to save the extracted embedded file
 
 ## Example
 
