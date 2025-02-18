@@ -24,20 +24,16 @@ if (!outputPath) {
 }
 
 const ZERO_WIDTH_NON_JOINER = "\u200C";
+const LTR_MARK = "\u200E";
+const RTL_MARK = "\u200F";
 const ZERO_WIDTH_SPACE = "\u200B";
-const ZERO_WIDTH_JOINER = "\u200D";
 
 // The hidden message will start and end with the discovery flag
-const DISCOVERY_FLAG = [
-  ZERO_WIDTH_SPACE,
-  ZERO_WIDTH_JOINER,
-  ZERO_WIDTH_SPACE,
-  ZERO_WIDTH_NON_JOINER,
-  ZERO_WIDTH_SPACE,
-].join("");
+const DISCOVERY_FLAG = [ZERO_WIDTH_SPACE, RTL_MARK].join("");
+const END_FLAG = [ZERO_WIDTH_SPACE, LTR_MARK].join("");
 
 const ONE = ZERO_WIDTH_SPACE;
-const ZERO = ZERO_WIDTH_NON_JOINER;
+const ZERO = RTL_MARK;
 
 const cover = fs.readFileSync(coverPath, "utf8");
 const embed = fs.readFileSync(embedPath);
